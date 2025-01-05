@@ -12,5 +12,5 @@
 export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
 source env.sh
 export LD_LIBRARY_PATH=$(pwd)/lib:$LD_LIBRARY_PATH
-
+export SRUN_EXPORT_ENV=ALL,LD_PRELOAD=$(pwd)/lib/libtrace.so
 srun ./test
