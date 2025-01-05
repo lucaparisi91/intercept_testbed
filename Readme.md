@@ -2,8 +2,8 @@
 
 A repository to test methods of intercepting external library calls linked dynamically.
 
-Compile with 
+Examples are compiled ( for now ) with a script
 
 ```bash
-CC example.cc -lgotcha -o test
+bash build_examples.sh 
 ```
