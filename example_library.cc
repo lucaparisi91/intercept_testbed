@@ -35,13 +35,15 @@ static gotcha_binding_t bindings[] = {
 
 
 
-int main(int argc, char *argv[]) {
-  gotcha_wrap(bindings, 2, "demotool");
+class gotcha_setup
+{
+  public:
+    
+    gotcha_setup()
+    {
+      gotcha_wrap(bindings, 2, "demotool");
+    }
 
-  open("/dev/null", O_RDONLY);
-  open("/dev/null", O_WRONLY | O_CREAT | O_EXCL);
-  fopen("/dev/random", "r");
-  fopen("/does/not/exist", "w");
+};
 
-  return 0;
-}
+static gotcha_setup gotcha_demotool;
