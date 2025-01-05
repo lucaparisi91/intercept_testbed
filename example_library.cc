@@ -34,7 +34,7 @@ static int open_wrapper(const char *pathname, int flags, mode_t mode) {
 static int llapi_advise_wrapper(int fd, unsigned long long flags,int num_advise, struct llapi_lu_ladvise *ladvise) {
     llapi_ladvise_ptr wrappee = (llapi_ladvise_ptr) gotcha_get_wrappee(llapi_advise_handle);
     int result = wrappee(fd, flags, num_advise,ladvise);
-    fprintf(stderr, "llapi_advise(%d, %d, %d ,_) = %d\n",
+    fprintf(stderr, "llapi_advise(%d, %llu, %d ,_) = %d\n",
             fd, flags, num_advise, result);
     
     return result;
@@ -50,7 +50,8 @@ static FILE *fopen_wrapper(const char *path, const char *mode) {
 
 static gotcha_binding_t bindings[] = {
   { "open", (void *)open_wrapper, &open_handle },
-  { "fopen", (void *)fopen_wrapper, &fopen_handle }
+  { "fopen", (void *)fopen_wrapper, &fopen_handle },
+  { "llapi_advise",(void *)llapi_advise_wrapper,&llapi_advise_handle}
     };
 
 
@@ -61,7 +62,7 @@ class gotcha_setup
 
     gotcha_setup()
     {
-      gotcha_wrap(bindings, 2, "demotool");
+      gotcha_wrap(bindings, 3, "demotool");
     }
 
 };
